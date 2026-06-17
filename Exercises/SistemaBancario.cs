@@ -32,7 +32,24 @@ namespace SistemaBancario.Exercises
                     Console.WriteLine($"Novo saldo: R$ {saldo}");
                     break;
                 case 2:
-                    Console.WriteLine("Você escolheu Sacar");
+                    Console.WriteLine("Digite o valor do saque: ");
+
+                    double valorSaque = double.Parse(Console.ReadLine());
+
+                    if (valorSaque <= saldo)
+                    {
+                        saldo = saldo - valorSaque;
+
+                        SalvarSaldo();
+
+
+                        Console.WriteLine($"Saque realizado com sucesso!");
+                        Console.WriteLine($"Novo saldo: R$ {saldo}");
+                    } 
+                    else
+                    {
+                        Console.WriteLine("Saldo insuficiente.");
+                    }
                     break;
                 case 3:
                     Console.WriteLine("Saindo...");
