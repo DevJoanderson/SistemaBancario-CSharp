@@ -7,6 +7,7 @@ namespace SistemaBancario.Exercises
         private static string caminhoArquivo = "saldo.txt";
         public static void Executar()
         {
+            CarregarSaldo();
             Console.WriteLine("==== SISTEMA BANCÁRIO ====");
             Console.WriteLine("0 - Ver saldo");
             Console.WriteLine("1 - Depositar");
@@ -43,6 +44,17 @@ namespace SistemaBancario.Exercises
             private static void SalvarSaldo()
         {
             File.WriteAllText(caminhoArquivo, saldo.ToString());
+        }
+
+        private static void CarregarSaldo()
+        {
+            if (File.Exists(caminhoArquivo))
+            {
+                string texto = File.ReadAllText(caminhoArquivo);
+
+                saldo = double.Parse(texto);
+            }
+
         }
     }
 }
