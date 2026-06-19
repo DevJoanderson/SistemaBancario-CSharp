@@ -61,7 +61,9 @@ namespace SistemaBancario.Exercises
 
                         if (valorSaque <= saldo)
                         {
+                            Console.WriteLine($"Saldo antes: {saldo}");
                             saldo = saldo - valorSaque;
+                            Console.WriteLine($"Saldo depois: {saldo}");
                             SalvarSaldo();
 
                             Console.WriteLine("Saque realizado com sucesso!");
