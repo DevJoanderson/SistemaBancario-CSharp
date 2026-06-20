@@ -2,4 +2,3 @@
 
 BancoApp.Executar();
 
-Console.ReadLine();
