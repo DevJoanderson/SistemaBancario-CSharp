@@ -16,63 +16,22 @@ namespace SistemaBancario.Exercises
 
             while (opcao != 3)
             {
-                Console.WriteLine("==== SISTEMA BANCÁRIO ====");
-                Console.WriteLine("0 - Ver saldo");
-                Console.WriteLine("1 - Depositar");
-                Console.WriteLine("2 - Sacar");
-                Console.WriteLine("3 - Sair");
-
-                Console.WriteLine();
-                Console.Write("Escolha uma opção: ");
+                ExibirMenu();
 
                 opcao = int.Parse(Console.ReadLine());
 
                 switch (opcao)
                 {
                     case 0:
-                        Console.WriteLine($"O seu saldo é de R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}");
+                        VerSaldo();
                         break;
 
                     case 1:
-                        Console.Write("Digite o valor do depósito: ");
-                        double valor = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-                        if (valor <= 0)
-                        {
-                            Console.WriteLine("O valor precisa ser maior que zero.");
-                            break;
-                        }
-
-                        saldo = saldo + valor;
-                        SalvarSaldo();
-
-                        Console.WriteLine($"Novo saldo: R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}");
+                        Depositar();
                         break;
 
                     case 2:
-                        Console.Write("Digite o valor do saque: ");
-                        double valorSaque = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-                        if (valorSaque <= 0)
-                        {
-                            Console.WriteLine("O valor precisa ser maior que zero.");
-                            break;
-                        }
-
-                        if (valorSaque <= saldo)
-                        {
-                            Console.WriteLine($"Saldo antes: {saldo}");
-                            saldo = saldo - valorSaque;
-                            Console.WriteLine($"Saldo depois: {saldo}");
-                            SalvarSaldo();
-
-                            Console.WriteLine("Saque realizado com sucesso!");
-                            Console.WriteLine($"Novo saldo: R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Saldo insuficiente.");
-                        }
+                        Sacar();
                         break;
 
                     case 3:
@@ -88,9 +47,87 @@ namespace SistemaBancario.Exercises
             }
         }
 
+        private static void ExibirMenu()
+        {
+            Console.WriteLine("==== SISTEMA BANCÁRIO ====");
+            Console.WriteLine("0 - Ver saldo");
+            Console.WriteLine("1 - Depositar");
+            Console.WriteLine("2 - Sacar");
+            Console.WriteLine("3 - Sair");
+            Console.WriteLine();
+            Console.Write("Escolha uma opção: ");
+        }
+
+        private static void VerSaldo()
+        {
+            Console.WriteLine(
+                $"O seu saldo é de R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}"
+            );
+        }
+
+        private static void Depositar()
+        {
+            Console.Write("Digite o valor do depósito: ");
+
+            double valor = double.Parse(
+                Console.ReadLine(),
+                CultureInfo.InvariantCulture
+            );
+
+            if (valor <= 0)
+            {
+                Console.WriteLine("O valor precisa ser maior que zero.");
+                return;
+            }
+
+            saldo = saldo + valor;
+
+            SalvarSaldo();
+
+            Console.WriteLine(
+                $"Novo saldo: R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}"
+            );
+        }
+
+        private static void Sacar()
+        {
+            Console.Write("Digite o valor do saque: ");
+
+            double valorSaque = double.Parse(
+                Console.ReadLine(),
+                CultureInfo.InvariantCulture
+            );
+
+            if (valorSaque <= 0)
+            {
+                Console.WriteLine("O valor precisa ser maior que zero.");
+                return;
+            }
+
+            if (valorSaque <= saldo)
+            {
+                saldo = saldo - valorSaque;
+
+                SalvarSaldo();
+
+                Console.WriteLine("Saque realizado com sucesso!");
+
+                Console.WriteLine(
+                    $"Novo saldo: R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}"
+                );
+            }
+            else
+            {
+                Console.WriteLine("Saldo insuficiente.");
+            }
+        }
+
         private static void SalvarSaldo()
         {
-            File.WriteAllText(caminhoArquivo, saldo.ToString(CultureInfo.InvariantCulture));
+            File.WriteAllText(
+                caminhoArquivo,
+                saldo.ToString(CultureInfo.InvariantCulture)
+            );
         }
 
         private static void CarregarSaldo()
@@ -99,7 +136,10 @@ namespace SistemaBancario.Exercises
             {
                 string texto = File.ReadAllText(caminhoArquivo);
 
-                saldo = double.Parse(texto, CultureInfo.InvariantCulture);
+                saldo = double.Parse(
+                    texto,
+                    CultureInfo.InvariantCulture
+                );
             }
         }
     }
