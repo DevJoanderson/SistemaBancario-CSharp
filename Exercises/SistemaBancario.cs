@@ -5,11 +5,12 @@ namespace SistemaBancario.Exercises
 {
     public class BancoApp
     {
-        private static double saldo = 0;
+        private static Conta conta = new Conta(1, "Joanderson");
         private static string caminhoArquivo = "saldo.txt";
 
         public static void Executar()
         {
+            
             int opcao = 0;
 
             CarregarSaldo();
@@ -61,7 +62,7 @@ namespace SistemaBancario.Exercises
         private static void VerSaldo()
         {
             Console.WriteLine(
-                $"O seu saldo é de R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}"
+                $"O seu saldo é de R$ {conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}"
             );
         }
 
@@ -80,12 +81,12 @@ namespace SistemaBancario.Exercises
                 return;
             }
 
-            saldo = saldo + valor;
+            conta.Saldo = conta.Saldo + valor;
 
             SalvarSaldo();
 
             Console.WriteLine(
-                $"Novo saldo: R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}"
+                $"Novo saldo: R$ {conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}"
             );
         }
 
@@ -104,16 +105,16 @@ namespace SistemaBancario.Exercises
                 return;
             }
 
-            if (valorSaque <= saldo)
+            if (valorSaque <= conta.Saldo)
             {
-                saldo = saldo - valorSaque;
+                conta.Saldo = conta.Saldo - valorSaque;
 
                 SalvarSaldo();
 
                 Console.WriteLine("Saque realizado com sucesso!");
 
                 Console.WriteLine(
-                    $"Novo saldo: R$ {saldo.ToString("F2", CultureInfo.InvariantCulture)}"
+                    $"Novo saldo: R$ {conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}"
                 );
             }
             else
@@ -126,7 +127,7 @@ namespace SistemaBancario.Exercises
         {
             File.WriteAllText(
                 caminhoArquivo,
-                saldo.ToString(CultureInfo.InvariantCulture)
+                conta.Saldo.ToString(CultureInfo.InvariantCulture)
             );
         }
 
@@ -136,11 +137,11 @@ namespace SistemaBancario.Exercises
             {
                 string texto = File.ReadAllText(caminhoArquivo);
 
-                saldo = double.Parse(
+                conta.Saldo = double.Parse(
                     texto,
                     CultureInfo.InvariantCulture
                 );
-            }
+            } 
         }
     }
 }
