@@ -14,5 +14,21 @@ namespace SistemaBancario.Exercises
             Nome = nome;
             Saldo = 0;
         }
+
+        public void Depositar(double valor)
+        {
+            if (valor > 0)
+            {
+                Saldo += valor;
+            }
+        }
+
+        public void Sacar(double valor)
+        {
+            if (valor > 0 && valor <= Saldo)
+            {
+                Saldo -= valor;
+            }
+        } 
     }
 }

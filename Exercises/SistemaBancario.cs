@@ -81,7 +81,7 @@ namespace SistemaBancario.Exercises
                 return;
             }
 
-            conta.Saldo = conta.Saldo + valor;
+            conta.Depositar(valor);
 
             SalvarSaldo();
 
@@ -107,7 +107,7 @@ namespace SistemaBancario.Exercises
 
             if (valorSaque <= conta.Saldo)
             {
-                conta.Saldo = conta.Saldo - valorSaque;
+                conta.Sacar(valorSaque);
 
                 SalvarSaldo();
 
