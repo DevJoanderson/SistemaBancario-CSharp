@@ -1,11 +1,13 @@
-﻿using System.Globalization;
-using System.IO;
+﻿using System.IO;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SistemaBancario.Exercises
 {
     public class BancoApp
     {
         private static Conta conta = new Conta(1, "Joanderson");
+        private static List<string> historico = new();
         private static string caminhoArquivo = "saldo.txt";
 
         public static void Executar()
@@ -39,6 +41,10 @@ namespace SistemaBancario.Exercises
                         Console.WriteLine("Saindo...");
                         break;
 
+                    case 4:
+                        VerHistorico();
+                        break;
+
                     default:
                         Console.WriteLine("Opção inválida.");
                         break;
@@ -55,6 +61,7 @@ namespace SistemaBancario.Exercises
             Console.WriteLine("1 - Depositar");
             Console.WriteLine("2 - Sacar");
             Console.WriteLine("3 - Sair");
+            Console.WriteLine("4 - Ver histórico");
             Console.WriteLine();
             Console.Write("Escolha uma opção: ");
         }
@@ -82,6 +89,7 @@ namespace SistemaBancario.Exercises
             }
 
             conta.Depositar(valor);
+            historico.Add($"Depósito: R$ {valor}");
 
             SalvarSaldo();
 
@@ -108,6 +116,7 @@ namespace SistemaBancario.Exercises
             if (valorSaque <= conta.Saldo)
             {
                 conta.Sacar(valorSaque);
+                historico.Add($"Saque: R$ {valorSaque}");
 
                 SalvarSaldo();
 
@@ -142,6 +151,22 @@ namespace SistemaBancario.Exercises
                     CultureInfo.InvariantCulture
                 );
             } 
+        }
+
+        private static void VerHistorico()
+        {
+            if(historico.Count == 0)
+            {
+                Console.WriteLine("Nenhuma movimentação encontrada.");
+                return;
+            }
+
+            Console.WriteLine("=== Histórico ===");
+
+            foreach (string item in historico)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
