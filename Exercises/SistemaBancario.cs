@@ -45,6 +45,10 @@ namespace SistemaBancario.Exercises
                         VerHistorico();
                         break;
 
+                    case 5:
+                        VerInformacoesDaConta();
+                        break;
+
                     default:
                         Console.WriteLine("Opção inválida.");
                         break;
@@ -62,6 +66,7 @@ namespace SistemaBancario.Exercises
             Console.WriteLine("2 - Sacar");
             Console.WriteLine("3 - Sair");
             Console.WriteLine("4 - Ver histórico");
+            Console.WriteLine("5 - Informações da conta");
             Console.WriteLine();
             Console.Write("Escolha uma opção: ");
         }
@@ -167,6 +172,14 @@ namespace SistemaBancario.Exercises
             {
                 Console.WriteLine(item);
             }
+        }
+
+        private static void VerInformacoesDaConta()
+        {
+            Console.WriteLine("=== Infomações da Conta ===");
+            Console.WriteLine($"Id: {conta.Id}");
+            Console.WriteLine($"Nome: {conta.Nome}");
+            Console.WriteLine($"Saldo: R$ {conta.Saldo.ToString("F2", CultureInfo.InvariantCulture)}");
         }
     }
 }
